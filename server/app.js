@@ -1,11 +1,28 @@
-import express, { urlencoded } from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-const app = express()
+import { config } from "dotenv";
+config();
+import dbConnection from './config/dbConnection.js'
+import express from "express";
+import morgan from "morgan";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+const app = express();
 
-app.use(cors())
-app.use(cookieParser())
-app.use(express.json())
+
+dbConnection();
+app.use(cors({
+	origin: [process.env.FRONTEND_URL],
+	credential: true
+}));
+
+app.use(cookieParser());
+
+app.use(express.json());
+
+app.use(morgan('dev'));
+
+app.use('/ping', (req, res) => {
+	res.send('pong')
+})
 
 
 export default app;

@@ -24,5 +24,9 @@ app.use('/ping', (req, res) => {
 	res.send('pong')
 })
 
+app.all('*', (req, res) => {
+	res.status(404).send('OOPS!!! 404 Page Not Found')
+})
+
 
 export default app;

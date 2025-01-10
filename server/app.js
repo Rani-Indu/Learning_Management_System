@@ -6,9 +6,13 @@ import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 const app = express();
+import userRoutes from './routes/user.route.js'
 
 
 dbConnection();
+
+app.use('/api/v1/user', userRoutes);
+
 app.use(cors({
 	origin: [process.env.FRONTEND_URL],
 	credential: true
